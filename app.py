@@ -14,7 +14,7 @@ uploaded_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
 if uploaded_file is not None:
     # Display the original image
     image = Image.open(uploaded_file)
-    st.image(image, caption="Uploaded Image", use_column_width=True)
+    st.image(image, caption="Uploaded Image", use_container_width=True)
 
     # Load the MSRN model
     @st.cache_resource
@@ -43,7 +43,7 @@ if uploaded_file is not None:
     enhanced_image = to_pil_image(preds)
 
     # Display the enhanced image
-    st.image(enhanced_image, caption="Enhanced Image", use_column_width=True)
+    st.image(enhanced_image, caption="Enhanced Image", use_container_width=True)
 
     # Download button for the enhanced image
     img_byte_arr = io.BytesIO()
@@ -56,4 +56,3 @@ if uploaded_file is not None:
         file_name="enhanced_image.png",
         mime="image/png",
     )
-
