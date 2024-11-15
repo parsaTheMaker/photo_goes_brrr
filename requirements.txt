@@ -1,0 +1,6 @@
+streamlit
+super-image
+huggingface_hub==0.25.1
+torch
+torchvision
+pillow
