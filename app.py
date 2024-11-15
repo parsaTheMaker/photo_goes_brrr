@@ -31,7 +31,7 @@ uploaded_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
 if uploaded_file is not None:
     # Display the original image
     image = Image.open(uploaded_file).convert('RGB')
-    st.image(image, caption="Uploaded Image", use_column_width=True)
+    st.image(image, caption="Uploaded Image", use_container_width=True)
 
     # Load the model
     @st.cache_resource
@@ -73,7 +73,7 @@ if uploaded_file is not None:
             torch.cuda.empty_cache()
 
         # Display the enhanced image
-        st.image(enhanced_image, caption="Enhanced Image", use_column_width=True)
+        st.image(enhanced_image, caption="Enhanced Image", use_container_width=True)
 
         # Download button for the enhanced image
         img_byte_arr = io.BytesIO()
