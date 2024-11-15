@@ -2,6 +2,7 @@ import streamlit as st
 from super_image import MsrnModel, ImageLoader
 from PIL import Image
 import torch
+from torchvision.transforms.functional import to_pil_image
 import io
 
 # Title and Description
@@ -31,8 +32,17 @@ if uploaded_file is not None:
     with torch.no_grad():
         preds = model(inputs)
 
-    # Save and display the enhanced image
-    enhanced_image = ImageLoader.to_image(preds)
+    # If preds is batched, select the first image
+    if preds.dim() == 4:
+        preds = preds[0]
+
+    # Move preds to CPU
+    preds = preds.cpu()
+
+    # Convert preds to a PIL Image
+    enhanced_image = to_pil_image(preds)
+
+    # Display the enhanced image
     st.image(enhanced_image, caption="Enhanced Image", use_column_width=True)
 
     # Download button for the enhanced image
@@ -46,3 +56,4 @@ if uploaded_file is not None:
         file_name="enhanced_image.png",
         mime="image/png",
     )
+
