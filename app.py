@@ -13,8 +13,8 @@ Ensure that the Colab notebook is configured to use a GPU.
 Install the necessary packages:
 """
 
-!pip install super-image
-!pip install huggingface_hub==0.25.1
+"""!pip install super-image
+!pip install huggingface_hub==0.25.1"""
 
 """**Import Required Libraries:**
 
