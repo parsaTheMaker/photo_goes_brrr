@@ -3,3 +3,4 @@ torch
 diffusers
 transformers
 Pillow
+accelerate
