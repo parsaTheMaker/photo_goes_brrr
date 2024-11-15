@@ -1,7 +1,7 @@
 streamlit
 super-image==0.1.7
 huggingface_hub<0.26
-torch
-torchvision
+torch==1.13.1
+torchvision==0.14.1
 pillow
 opencv-python-headless
