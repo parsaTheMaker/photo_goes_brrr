@@ -5,8 +5,8 @@ from realesrgan import RealESRGAN
 import io
 
 # Title and Description
-st.title("Fast Image Enhancer")
-st.write("Enhance your images quickly using a lightweight pre-trained model.")
+st.title("Fast Image Upscaler")
+st.write("Enhance your images with a lightweight pre-trained Real-ESRGAN model.")
 
 # File Uploader
 uploaded_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
@@ -20,18 +20,18 @@ if uploaded_file is not None:
     @st.cache_resource
     def load_model():
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        model = RealESRGAN(device, scale=2)
+        model = RealESRGAN(device, scale=2)  # Use x2 upscaling
         model.load_weights("https://github.com/xinntao/Real-ESRGAN/releases/download/v0.3.0/RealESRGAN_x2plus.pth")
         return model
 
     model = load_model()
 
-    with st.spinner("Enhancing image..."):
+    with st.spinner("Upscaling image..."):
         # Perform enhancement
         enhanced_image = model.predict(image)
 
     # Display the enhanced image
-    st.image(enhanced_image, caption="Enhanced Image", use_column_width=True)
+    st.image(enhanced_image, caption="Upscaled Image", use_column_width=True)
 
     # Prepare the image for download
     img_byte_arr = io.BytesIO()
@@ -40,8 +40,8 @@ if uploaded_file is not None:
 
     # Download button for the enhanced image
     st.download_button(
-        label="Download Enhanced Image",
+        label="Download Upscaled Image",
         data=img_byte_arr,
-        file_name="enhanced_image.png",
+        file_name="upscaled_image.png",
         mime="image/png",
     )
