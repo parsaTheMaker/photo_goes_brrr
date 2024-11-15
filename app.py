@@ -1,5 +1,7 @@
 import streamlit as st
-from super_image import MsrnModel, EdsrModel, ImageLoader
+from super_image.models.msrn import MsrnModel
+from super_image.models.edsr import EdsrModel
+from super_image.data import ImageLoader
 from PIL import Image
 import torch
 from torchvision.transforms.functional import to_pil_image
@@ -38,12 +40,13 @@ if uploaded_file is not None:
     def load_model(model_type, model_name, scale):
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         if model_type == 'MSRN':
-            model = MsrnModel.from_pretrained(model_name, scale=scale).to(device)
+            model = MsrnModel.from_pretrained(model_name, scale=scale)
         elif model_type == 'EDSR':
-            model = EdsrModel.from_pretrained(model_name, scale=scale).to(device)
+            model = EdsrModel.from_pretrained(model_name, scale=scale)
         else:
             st.error(f"Unsupported model type: {model_type}")
             return None, device
+        model = model.to(device)
         return model, device
 
     model, device = load_model(model_type, model_name, scale)
