@@ -4,6 +4,10 @@ from PIL import Image
 import torch
 from torchvision.transforms.functional import to_pil_image
 import io
+import logging
+
+# Suppress PyTorch and Hugging Face warnings
+logging.getLogger('torch').setLevel(logging.ERROR)
 
 # Title and Description
 st.title("Image Enhancer (4x Upscaler)")
