@@ -7,9 +7,11 @@ import torch
 from torchvision.transforms.functional import to_pil_image
 import io
 import logging
+import warnings
 
 # Suppress PyTorch and Hugging Face warnings
 logging.getLogger('torch').setLevel(logging.ERROR)
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # Title and Description
 st.title("Image Enhancer (Super-Resolution)")
@@ -24,11 +26,13 @@ model_options = {
     'EDSR x4': ('EDSR', 'eugenesiow/edsr', 4),
     # Add more models and scales as needed
 }
-selected_model_option = st.sidebar.selectbox('Select Super-Resolution Model', list(model_options.keys()))
+selected_model_option = st.sidebar.selectbox(
+    'Select Super-Resolution Model', list(model_options.keys()))
 model_type, model_name, scale = model_options[selected_model_option]
 
 # File Uploader
-uploaded_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
+uploaded_file = st.file_uploader(
+    "Upload an image", type=["png", "jpg", "jpeg"])
 
 if uploaded_file is not None:
     # Display the original image
@@ -76,7 +80,8 @@ if uploaded_file is not None:
             torch.cuda.empty_cache()
 
         # Display the enhanced image
-        st.image(enhanced_image, caption="Enhanced Image", use_container_width=True)
+        st.image(enhanced_image, caption="Enhanced Image",
+                 use_container_width=True)
 
         # Download button for the enhanced image
         img_byte_arr = io.BytesIO()
