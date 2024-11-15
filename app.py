@@ -31,23 +31,14 @@ import torch
 Load the image you wish to enhance. You can use a URL or upload an image directly:
 """
 
-from google.colab import files
+"""from google.colab import files"""
 from PIL import Image
 import io
 
-# Upload the file
-uploaded = files.upload()
-
-# Iterate over the uploaded files
-for filename, filecontent in uploaded.items():
-    # Save the uploaded file to the local filesystem
-    with open(filename, 'wb') as f:
-        f.write(filecontent)
-
-    # Open the image using PIL
-    image = Image.open(filename)
-    # Display the image
-    image.show()
+uploaded_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
+if uploaded_file is not None:
+    image = Image.open(uploaded_file)
+    st.image(image, caption="Uploaded Image", use_column_width=True)
 
 """**Initialize the DRLN Model:**
 
