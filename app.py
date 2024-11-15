@@ -8,7 +8,8 @@ import torch
 def load_model():
     model_id = "stabilityai/stable-diffusion-x4-upscaler"
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    pipe = StableDiffusionUpscalePipeline.from_pretrained(model_id, torch_dtype=torch.float16)
+    dtype = torch.float16 if device == "cuda" else torch.float32  # Adjust dtype for CPU/GPU
+    pipe = StableDiffusionUpscalePipeline.from_pretrained(model_id, torch_dtype=dtype)
     return pipe.to(device)
 
 # Load the upscaler model
